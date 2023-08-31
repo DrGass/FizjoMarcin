@@ -1,6 +1,8 @@
-from sqlalchemy import Integer, String
+from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.sql.schema import Column
+from sqlalchemy.orm import relationship
 from app.modules.database import Base, SessionLocal
+from app.modules.schemas.user_schema import showUser
 
 
 class Patient(Base):
@@ -10,6 +12,9 @@ class Patient(Base):
     name = Column(String)
     surname = Column(String)
     age = Column(Integer)
+    user_id = Column(Integer, ForeignKey("user.id"), nullable= True)
+
+    users = relationship("User", back_populates="patients")
 
 
 @staticmethod
@@ -22,6 +27,7 @@ def get_patient_by_id(id, session: SessionLocal):
 def delete_patient(id, session: SessionLocal):
     session.query(Patient).filter(Patient.id == id).delete(synchronize_session=False)
 
+
 @staticmethod
-def update_patient(id,session: SessionLocal,request):
+def update_patient(id, session: SessionLocal, request):
     session.query(Patient).filter(Patient.id == id).update(request.model_dump())
