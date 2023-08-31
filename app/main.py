@@ -1,9 +1,9 @@
 from fastapi import FastAPI, Depends, Response, status, HTTPException
-from pydantic import ValidationError
 from sqlalchemy.orm import Session
 from app.modules.database import engine, get_db
 from typing import List
 from passlib.context import CryptContext
+from app.routers import patient, user
 
 import app.modules.schemas.patient_schema as patient_schema
 import app.modules.models.patient_model as patient_model
@@ -11,6 +11,8 @@ import app.modules.models.user_model as user_model
 import app.modules.schemas.user_schema as user_schema
 
 app = FastAPI()
+app.include_router(patient.router)
+app.include_router(user.router)
 
 
 user_model.Base.metadata.create_all(bind=engine)
@@ -20,7 +22,7 @@ patient_model.Base.metadata.create_all(bind=engine)
 @app.post("/patient", status_code=status.HTTP_201_CREATED, tags=["patient"])
 def create(request: patient_schema.NewPatient, db: Session = Depends(get_db)):
     new_patient = patient_model.Patient(**request.model_dump())
-    new_patient.owner_id = request.id,
+    new_patient.owner_id = (request.id,)
     db.add(new_patient)
     db.commit()
     db.refresh(new_patient)
@@ -41,26 +43,26 @@ def update(id, request: patient_schema.NewPatient, db: Session = Depends(get_db)
     return "updated"
 
 
-@app.get("/patient", response_model=List[patient_schema.ShowPatient], tags=["patient"])
-def get_all(db: Session = Depends(get_db)):
-    patients = db.query(patient_model.Patient).all()
-    return patients
+# @app.get("/patient", response_model=List[patient_schema.ShowPatient], tags=["patient"])
+# def get_all(db: Session = Depends(get_db)):
+#     patients = db.query(patient_model.Patient).all()
+#     return patients
 
 
-@app.get(
-    "/patient/{id}",
-    status_code=200,
-    response_model=patient_schema.ShowPatient,
-    tags=["patient"],
-)
-def get_by_id(id: int, db: Session = Depends(get_db)):
-    patient = patient_model.get_patient_by_id(id, db)
-    if not patient:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Patient with number {id} is not avaiable",
-        )
-    return patient
+# @app.get(
+#     "/patient/{id}",
+#     status_code=200,
+#     response_model=patient_schema.ShowPatient,
+#     tags=["patient"],
+# )
+# def get_by_id(id: int, db: Session = Depends(get_db)):
+#     patient = patient_model.get_patient_by_id(id, db)
+#     if not patient:
+#         raise HTTPException(
+#             status_code=status.HTTP_404_NOT_FOUND,
+#             detail=f"Patient with number {id} is not avaiable",
+#         )
+#     return patient
 
 
 # User
@@ -93,18 +95,18 @@ def update(id, request: user_schema.User, db: Session = Depends(get_db)):
     return "updated"
 
 
-@app.get("/user", response_model=List[user_schema.showUser], tags=["user"])
-def get_all(db: Session = Depends(get_db)):
-    patients = db.query(user_model.User).all()
-    return patients
+# @app.get("/user", response_model=List[user_schema.showUser], tags=["user"])
+# def get_all(db: Session = Depends(get_db)):
+#     patients = db.query(user_model.User).all()
+#     return patients
 
 
-@app.get("/user/{id}", status_code=200, response_model=user_schema.User, tags=["user"])
-def get_by_id(id: int, db: Session = Depends(get_db)):
-    patient = user_model.get_user_by_id(id, db)
-    if not patient:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Patient with number {id} is not avaiable",
-        )
-    return patient
+# @app.get("/user/{id}", status_code=200, response_model=user_schema.showUser, tags=["user"])
+# def get_by_id(id: int, db: Session = Depends(get_db)):
+#     patient = user_model.get_user_by_id(id, db)
+#     if not patient:
+#         raise HTTPException(
+#             status_code=status.HTTP_404_NOT_FOUND,
+#             detail=f"Patient with number {id} is not avaiable",
+#         )
+#     return patient

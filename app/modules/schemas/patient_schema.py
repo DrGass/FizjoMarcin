@@ -7,7 +7,7 @@ class NewPatient(BaseModel):
     name: str
     surname: str
     age: int
-    owner_id : int
+    owner_id: int
 
     class Config:
         from_attributes = True
@@ -20,4 +20,3 @@ class ShowPatient(BaseModel):
 
     class Config:
         from_attributes = True
-

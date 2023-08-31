@@ -14,7 +14,7 @@ class User(BaseModel):
 class showUser(BaseModel):
     email: str
     id: int
-    patients : list[ShowPatient] = []
+    patients: list[ShowPatient] = []
 
     class Config:
         from_attributes = True

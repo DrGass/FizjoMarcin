@@ -11,7 +11,7 @@ class Patient(Base):
     name = Column(String)
     surname = Column(String)
     age = Column(Integer)
-    owner_id = Column(Integer, ForeignKey("user.id"), nullable= True)
+    owner_id = Column(Integer, ForeignKey("user.id"), nullable=True)
 
     users = relationship("User", back_populates="patients")
 
