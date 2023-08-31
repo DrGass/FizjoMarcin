@@ -1,4 +1,3 @@
-from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String
 from app.modules.database import Base, SessionLocal
 from passlib.context import CryptContext
