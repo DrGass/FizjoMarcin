@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Depends, Response, status, HTTPException
+from pydantic import ValidationError
 from sqlalchemy.orm import Session
 from app.modules.database import engine, get_db
 from typing import List
@@ -18,9 +19,11 @@ patient_model.Base.metadata.create_all(bind=engine)
 
 @app.post("/patient", status_code=status.HTTP_201_CREATED, tags=["patient"])
 def create(request: patient_schema.NewPatient, db: Session = Depends(get_db)):
-    new_patient = patient_model.Patient(user_id = 1,**request.model_dump())
+    new_patient = patient_model.Patient(**request.model_dump())
+    new_patient.owner_id = request.id,
     db.add(new_patient)
     db.commit()
+    db.refresh(new_patient)
     return {"success": True, "created_id": new_patient.id}
 
 
@@ -72,6 +75,7 @@ def create(request: user_schema.User, db: Session = Depends(get_db)):
     new_user.password = pwd_ctx.hash(new_user.password)
     db.add(new_user)
     db.commit()
+    db.refresh(new_user)
     return {"success": True, "created_id:": new_user.id}
 
 
@@ -89,7 +93,7 @@ def update(id, request: user_schema.User, db: Session = Depends(get_db)):
     return "updated"
 
 
-@app.get("/user", response_model=List[user_schema.User], tags=["user"])
+@app.get("/user", response_model=List[user_schema.showUser], tags=["user"])
 def get_all(db: Session = Depends(get_db)):
     patients = db.query(user_model.User).all()
     return patients

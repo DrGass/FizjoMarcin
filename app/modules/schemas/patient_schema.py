@@ -1,5 +1,4 @@
-from pydantic import BaseModel
-from app.modules.schemas.user_schema import showUser
+from pydantic import BaseModel, ValidationError
 from app.modules.database import SessionLocal
 
 
@@ -8,10 +7,17 @@ class NewPatient(BaseModel):
     name: str
     surname: str
     age: int
-# can't figure out how to connect it dynamically 
-    user : showUser
+    owner_id : int
+
+    class Config:
+        from_attributes = True
 
 
 class ShowPatient(BaseModel):
     name: str
     surname: str
+    # owner : User
+
+    class Config:
+        from_attributes = True
+

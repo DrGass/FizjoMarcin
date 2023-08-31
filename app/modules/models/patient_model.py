@@ -2,7 +2,6 @@ from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.sql.schema import Column
 from sqlalchemy.orm import relationship
 from app.modules.database import Base, SessionLocal
-from app.modules.schemas.user_schema import showUser
 
 
 class Patient(Base):
@@ -12,7 +11,7 @@ class Patient(Base):
     name = Column(String)
     surname = Column(String)
     age = Column(Integer)
-    user_id = Column(Integer, ForeignKey("user.id"), nullable= True)
+    owner_id = Column(Integer, ForeignKey("user.id"), nullable= True)
 
     users = relationship("User", back_populates="patients")
 
