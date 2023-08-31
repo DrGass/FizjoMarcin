@@ -21,3 +21,7 @@ def get_patient_by_id(id, session: SessionLocal):
 @staticmethod
 def delete_patient(id, session: SessionLocal):
     session.query(Patient).filter(Patient.id == id).delete(synchronize_session=False)
+
+@staticmethod
+def update_patient(id,session: SessionLocal,request):
+    session.query(Patient).filter(Patient.id == id).update(request.model_dump())
