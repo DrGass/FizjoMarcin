@@ -5,25 +5,26 @@ from app.modules.database import get_db
 
 import app.modules.models.user_model as user_model
 import app.modules.schemas.user_schema as user_schema
+import app.modules.auth.oauth2 as oauth2
 
 router = APIRouter(prefix="/user", tags=["User"])
 
 
 @router.get("/", response_model=list[user_schema.showUser])
-def get_all(db: Session = Depends(get_db)):
-    patients = db.query(user_model.User).all()
-    return patients
+def get_all(db: Session = Depends(get_db),get_current_user : user_schema.User = Depends(oauth2.get_current_user)):
+    users = db.query(user_model.User).all()
+    return users
 
 
 @router.get("/{id}", status_code=200, response_model=user_schema.User)
 def get_by_id(id: int, db: Session = Depends(get_db)):
-    patient = user_model.get_user_by_id(id, db)
-    if not patient:
+    user = user_model.get_user_by_id(id, db)
+    if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Patient with number {id} is not avaiable",
         )
-    return patient
+    return user
 
 
 pwd_ctx = CryptContext(schemes=["bcrypt"], deprecated="auto")

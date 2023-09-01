@@ -1,16 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
+router = APIRouter(tags=["Authentication"])
+
 from app.modules.database import SessionLocal, get_db
 from app.modules.auth.hashing import Hash
 from app.modules.auth.token import create_access_token
-
-router = APIRouter(tags=["Authentication"])
-
 import app.modules.schemas.authentication_schema as auth_schema
 import app.modules.models.user_model as user_model 
 
 
 @router.post("/login",)
-def login(request: auth_schema.Login, db: SessionLocal = Depends(get_db)):
+def login(request: OAuth2PasswordRequestForm = Depends(), db: SessionLocal = Depends(get_db)):
     user = db.query(user_model.User).filter(user_model.User.email == request.username).first()
     if not user:
         raise HTTPException(
