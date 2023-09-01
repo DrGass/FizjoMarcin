@@ -1,5 +1,4 @@
-from pydantic import BaseModel, ValidationError
-from app.modules.database import SessionLocal
+from pydantic import BaseModel
 
 
 class NewPatient(BaseModel):
@@ -16,7 +15,7 @@ class NewPatient(BaseModel):
 class ShowPatient(BaseModel):
     name: str
     surname: str
-    # owner : User
+    # owner : User didn't work for some unknown to me reason
 
     class Config:
         from_attributes = True

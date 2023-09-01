@@ -15,7 +15,7 @@ def get_all(db: Session = Depends(get_db)):
     return patients
 
 
-@router.get("/{id}", status_code=200, response_model=user_schema.showUser)
+@router.get("/{id}", status_code=200, response_model=user_schema.User)
 def get_by_id(id: int, db: Session = Depends(get_db)):
     patient = user_model.get_user_by_id(id, db)
     if not patient:
@@ -31,9 +31,9 @@ pwd_ctx = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create(request: user_schema.User, db: Session = Depends(get_db)):
-    # new_user = user_model.create_user(request)
-    new_user = user_model.User(**request.model_dump())
-    new_user.password = pwd_ctx.hash(new_user.password)
+    new_user = user_model.create_user(request)
+    # new_user = user_model.User(**request.model_dump())
+    # new_user.password = pwd_ctx.hash(new_user.password)
     db.add(new_user)
     db.commit()
     db.refresh(new_user)

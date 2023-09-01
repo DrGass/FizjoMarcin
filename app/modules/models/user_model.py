@@ -19,7 +19,7 @@ class User(Base):
 @staticmethod
 def create_user(request):
     new_user = User(**request.model_dump())
-    new_user.password = pwd_ctx.hash(new_user.password)
+    new_user.password = pwd_ctx.hash(request.password)
     return new_user
 
 
