@@ -6,13 +6,16 @@ from app.modules.database import get_db
 import app.modules.schemas.patient_schema as patient_schema
 import app.modules.models.patient_model as patient_model
 import app.modules.schemas.user_schema as user_schema
-import app.modules.auth.oauth2 as oauth2
+import app.routers.authentication as auth
 
 router = APIRouter(prefix="/patient", tags=["Patient"])
 
 
 @router.get("/", response_model=list[patient_schema.ShowPatient])
-def get_all(db: Session = Depends(get_db),get_current_user : user_schema.User = Depends(oauth2.get_current_user)):
+def get_all(
+    db: Session = Depends(get_db),
+    get_current_user: user_schema.User = Depends(auth.get_current_user),
+):
     patients = db.query(patient_model.Patient).all()
     return patients
 

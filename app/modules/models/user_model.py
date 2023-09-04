@@ -10,7 +10,7 @@ class User(Base):
     __tablename__ = "user"
 
     id = Column(Integer, primary_key=True)
-    email = Column(String)
+    username = Column(String)
     password = Column(String)
 
     patients = relationship("Patient", back_populates="users")

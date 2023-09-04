@@ -11,7 +11,10 @@ router = APIRouter(prefix="/user", tags=["User"])
 
 
 @router.get("/", response_model=list[user_schema.showUser])
-def get_all(db: Session = Depends(get_db),get_current_user : user_schema.User = Depends(oauth2.get_current_user)):
+def get_all(
+    db: Session = Depends(get_db),
+    current_user: user_schema.User = Depends(oauth2.get_current_user)
+):
     users = db.query(user_model.User).all()
     return users
 

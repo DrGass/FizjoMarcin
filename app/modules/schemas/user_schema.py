@@ -4,7 +4,7 @@ from app.modules.schemas.patient_schema import ShowPatient
 
 class User(BaseModel):
     id: int
-    email: str
+    username: str
     password: str
 
     class Config:
@@ -12,7 +12,7 @@ class User(BaseModel):
 
 
 class showUser(BaseModel):
-    email: str
+    username: str
     id: int
     patients: list[ShowPatient] = []
 
