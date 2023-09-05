@@ -44,5 +44,9 @@ def delete_patient(id, session: SessionLocal):
 
 @staticmethod
 def update_patient(id, session: SessionLocal, request):
-    session.query(Patient).filter(Patient.id == id).update(request.dict())
+    patient = session.query(Patient).filter(Patient.id == id)
+    if not patient.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                        detail=f"Patient with id {id} not found")
+    patient.update(request.dict())
     session.commit()

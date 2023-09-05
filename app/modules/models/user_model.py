@@ -33,7 +33,7 @@ def get_user_by_id(id, db: SessionLocal):
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Patient with number {id} is not avaiable",
+            detail=f"User with number {id} is not avaiable",
         )
     return user
 
@@ -46,7 +46,12 @@ def delete_user(id, db: SessionLocal):
 
 @staticmethod
 def update_user(id, db: SessionLocal, request):
-    db.query(User).filter(User.id == id).update(request.model_dump())
+    user = db.query(User).filter(User.id == id)
+    if not user.first():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                        detail=f"User with id {id} not found")
+    
+    user.update(request.dict())
     db.commit()
 
 @staticmethod
@@ -80,16 +85,16 @@ def get_all_users(db: SessionLocal):
 
 
 # @staticmethod
-# def get_user_by_id(id, session: SessionLocal):
-#     data = session.query(User).filter(User.id == id).first()
+# def get_user_by_id(id, db: SessionLocal):
+#     data = db.query(User).filter(User.id == id).first()
 #     return data
 
 
 # @staticmethod
-# def delete_user(id, session: SessionLocal):
-#     session.query(User).filter(User.id == id).delete(synchronize_session=False)
+# def delete_user(id, db: SessionLocal):
+#     db.query(User).filter(User.id == id).delete(synchronize_session=False)
 
 
 # @staticmethod
-# def update_user(id, session: SessionLocal, request):
-#     session.query(User).filter(User.id == id).update(request.model_dump())
+# def update_user(id, db: SessionLocal, request):
+#     db.query(User).filter(User.id == id).update(request.model_dump())
