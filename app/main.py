@@ -1,13 +1,16 @@
-from fastapi import FastAPI
+import subprocess
+
+subprocess.run(["alembic", "upgrade", "head"])
 
 import sys
 import os
 
 sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/app")
 
+from fastapi import FastAPI
+
 from modules.database import engine
 from routers import patient, user, authentication
-
 import modules.models.patient_model as patient_model
 import modules.models.user_model as user_model
 
@@ -19,3 +22,4 @@ app.include_router(user.router)
 
 user_model.Base.metadata.create_all(bind=engine)
 patient_model.Base.metadata.create_all(bind=engine)
+

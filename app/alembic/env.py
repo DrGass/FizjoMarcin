@@ -14,7 +14,7 @@ sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/
 # access to the values within the .ini file in use.
 config = context.config
 
-from   modules.database import Base
+from   modules.database import Base , SQLALCHEMY_DATABASE_URL
 import modules.models.user_model as user 
 import modules.models.patient_model as patient
 
@@ -23,6 +23,8 @@ import modules.models.patient_model as patient
 
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
+config.set_main_option('sqlalchemy.url', SQLALCHEMY_DATABASE_URL)
 
 
 
