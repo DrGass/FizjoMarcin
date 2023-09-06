@@ -1,5 +1,11 @@
 from pydantic import BaseModel
-from app.modules.schemas.patient_schema import ShowPatient
+
+import sys
+import os
+
+sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/app")
+
+from modules.schemas.patient_schema import ShowPatient
 
 
 class User(BaseModel):

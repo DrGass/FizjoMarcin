@@ -2,7 +2,12 @@ from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 
-import app.modules.schemas.token_schema as token_schema
+import sys
+import os
+
+sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/app")
+
+import modules.schemas.token_schema as token_schema
 
 SECRET_KEY = "28b802dd320593ee6e84523870ffe73b046aefce92450dfbfef77dadf2f5a8c4"
 ALGORITHM = "HS256"

@@ -1,9 +1,15 @@
 from fastapi import FastAPI
-from app.modules.database import engine
-from app.routers import patient, user, authentication
 
-import app.modules.models.patient_model as patient_model
-import app.modules.models.user_model as user_model
+import sys
+import os
+
+sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/app")
+
+from modules.database import engine
+from routers import patient, user, authentication
+
+import modules.models.patient_model as patient_model
+import modules.models.user_model as user_model
 
 app = FastAPI()
 

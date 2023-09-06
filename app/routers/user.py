@@ -1,10 +1,15 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
-from app.modules.database import get_db
+from modules.database import get_db
 
-import app.modules.models.user_model as user_model
-import app.modules.schemas.user_schema as user_schema
-import app.modules.auth.oauth2 as oauth2
+import sys
+import os
+
+sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/app")
+
+import modules.models.user_model as user_model
+import modules.schemas.user_schema as user_schema
+import modules.auth.oauth2 as oauth2
 
 router = APIRouter(prefix="/user", tags=["User"])
 
@@ -30,9 +35,11 @@ def get_by_id(
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
 def create(
-    request: user_schema.User
+    request: user_schema.User,
+    db: Session = Depends(get_db),
+
 ):
-    new_user = user_model.create_user(request)
+    new_user = user_model.create_user(request,db)
     return {"success": True, "created_id:": new_user.id}
 
 

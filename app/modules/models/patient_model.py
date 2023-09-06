@@ -2,7 +2,13 @@ from fastapi import HTTPException, status
 from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.sql.schema import Column
 from sqlalchemy.orm import relationship
-from app.modules.database import Base, SessionLocal
+
+import sys
+import os
+
+sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/app")
+
+from modules.database import Base, SessionLocal
 
 
 class Patient(Base):

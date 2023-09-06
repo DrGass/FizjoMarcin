@@ -1,12 +1,17 @@
 from fastapi import APIRouter, Depends, status, HTTPException
 
 from sqlalchemy.orm import Session
-from app.modules.database import get_db
+from modules.database import get_db
 
-import app.modules.schemas.patient_schema as patient_schema
-import app.modules.models.patient_model as patient_model
-import app.modules.schemas.user_schema as user_schema
-import app.modules.auth.oauth2 as oauth2
+import sys
+import os
+
+sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/app")
+
+import modules.schemas.patient_schema as patient_schema
+import modules.models.patient_model as patient_model
+import modules.schemas.user_schema as user_schema
+import modules.auth.oauth2 as oauth2
 
 router = APIRouter(prefix="/patient", tags=["Patient"])
 
