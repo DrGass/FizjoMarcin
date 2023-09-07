@@ -8,16 +8,11 @@ from sqlalchemy.orm import Session
 
 router = APIRouter(tags=["Authentication"])
 
-import sys
-import os
-
-sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/app")
-
 # from app.modules.auth.token import create_access_token
-import modules.models.user_model as user_model
-import modules.schemas.token_schema as token_schema
-import modules.schemas.user_schema as user_schema
-from modules.database import get_db
+import app.modules.models.user_model as user_model
+import app.modules.schemas.token_schema as token_schema
+import app.modules.schemas.user_schema as user_schema
+from   app.modules.database import get_db
 
 # from app.modules.auth.oauth2 import get_current_user
 

@@ -7,7 +7,6 @@ WORKDIR /code
 # 
 COPY ./requirements.txt /code/requirements.txt
 
-
 # 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
@@ -15,13 +14,11 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 COPY ./alembic.ini /code/alembic.ini
 
 # 
-COPY ./app /code/app
+COPY ./app/ /code/
 
 #
-ENV PYTHONPATH "${PYTHONPATH}:/code/app"
-
-#
+# ENV PYTHONPATH "${PYTHONPATH}:/code"
 
 
 # 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["bash", "-c", "wait-for-it --service postgres:5432 --timeout 300 && ls && python run.py"]

@@ -1,12 +1,7 @@
 from fastapi import HTTPException, status
 from sqlalchemy import Column, Integer, String
 
-import sys
-import os
-
-sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/app")
-
-from modules.database import Base, SessionLocal
+from app.modules.database import Base, SessionLocal
 from passlib.context import CryptContext
 from sqlalchemy.orm import relationship
 

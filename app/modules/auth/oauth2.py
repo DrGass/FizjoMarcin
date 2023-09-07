@@ -1,10 +1,5 @@
-import sys
-import os
-
-sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/app")
-
 from fastapi import Depends, HTTPException, status
-import modules.auth.token as token
+import app.modules.auth.token as token
 from fastapi.security import OAuth2PasswordBearer
 
 

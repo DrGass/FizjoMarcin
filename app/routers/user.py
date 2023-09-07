@@ -1,15 +1,10 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
-from modules.database import get_db
+from app.modules.database import get_db
 
-import sys
-import os
-
-sys.path.append(f"{os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}/app")
-
-import modules.models.user_model as user_model
-import modules.schemas.user_schema as user_schema
-import modules.auth.oauth2 as oauth2
+import app.modules.models.user_model as user_model
+import app.modules.schemas.user_schema as user_schema
+import app.modules.auth.oauth2 as oauth2
 
 router = APIRouter(prefix="/user", tags=["User"])
 
