@@ -1,5 +1,5 @@
 from fastapi import Depends, HTTPException, status
-import app.modules.auth.token as token
+import modules.auth.token as token
 from fastapi.security import OAuth2PasswordBearer
 
 

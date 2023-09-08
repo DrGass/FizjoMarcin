@@ -9,9 +9,9 @@ from alembic import context
 # access to the values within the .ini file in use.
 config = context.config
 
-from   app.modules.database import Base , SQLALCHEMY_DATABASE_URL
-import app.modules.models.user_model as user 
-import app.modules.models.patient_model as patient
+from   modules.database import Base , SQLALCHEMY_DATABASE_URL
+import modules.models.user_model as user 
+import modules.models.patient_model as patient
 
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.

@@ -3,7 +3,7 @@ from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.sql.schema import Column
 from sqlalchemy.orm import relationship
 
-from app.modules.database import Base, SessionLocal
+from modules.database import Base, SessionLocal
 
 
 class Patient(Base):

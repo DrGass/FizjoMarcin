@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status
 from sqlalchemy import Column, Integer, String
 
-from app.modules.database import Base, SessionLocal
+from modules.database import Base, SessionLocal
 from passlib.context import CryptContext
 from sqlalchemy.orm import relationship
 
@@ -61,7 +61,7 @@ def get_all_users(db: SessionLocal):
 
 ################################### ! Code before model update
 # from sqlalchemy import Column, Integer, String
-# from app.modules.database import Base, SessionLocal
+# from modules.database import Base, SessionLocal
 # from passlib.context import CryptContext
 # from sqlalchemy.orm import relationship
 

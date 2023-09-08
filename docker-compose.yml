@@ -8,17 +8,17 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./app:/code/app  # Mount the local directory to /code/app in the container
+      - I:\Programming\Python\FizjoMarcin\FizjoMarcin\app:/code/app
 
   postgres:
-    image: postgres:16rc1
+    image: postgres:${POSTGRES_IMAGE_TAG}
     container_name: postgres_database
     environment:
-      POSTGRES_DB: FizjoMarcin
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password123
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
-      - "5432:5432"
+      - "${POSTGRES_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

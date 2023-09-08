@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-from app.modules.schemas.patient_schema import ShowPatient
+from modules.schemas.patient_schema import ShowPatient
 
 
 class User(BaseModel):

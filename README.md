@@ -11,3 +11,9 @@ And in order to make uvicorn start on docker i needed to manually insert ip adre
 ### Commands
 - uvicorn app.main:app --reload = starting uvicorn server
 - black <filename> = formatting files
+
+Containers:
+ 
+- docker-compose build : build image
+- docker-compose down -v : delete containers and volumes
+- docker-compose -f ./docker-compose.yml --env-file ./app/.env up : start containers with env

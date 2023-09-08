@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
-from app.modules.database import get_db
+from modules.database import get_db
 
-import app.modules.models.user_model as user_model
-import app.modules.schemas.user_schema as user_schema
-import app.modules.auth.oauth2 as oauth2
+import modules.models.user_model as user_model
+import modules.schemas.user_schema as user_schema
+import modules.auth.oauth2 as oauth2
 
 router = APIRouter(prefix="/user", tags=["User"])
 
@@ -62,11 +62,11 @@ def update(
 # from fastapi import APIRouter, Depends, status, HTTPException
 # from passlib.context import CryptContext
 # from sqlalchemy.orm import Session
-# from app.modules.database import get_db
+# from modules.database import get_db
 
-# import app.modules.models.user_model as user_model
-# import app.modules.schemas.user_schema as user_schema
-# import app.modules.auth.oauth2 as oauth2
+# from modules.models.user_model as user_model
+# from modules.schemas.user_schema as user_schema
+# from modules.auth.oauth2 as oauth2
 
 # router = APIRouter(prefix="/user", tags=["User"])
 
