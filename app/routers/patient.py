@@ -4,10 +4,10 @@ from sqlalchemy.orm import Session
 from modules.database import get_db
 
 
-import modules.schemas.patient_schema as patient_schema
-import modules.models.patient_model as patient_model
-import modules.schemas.user_schema as user_schema
-import modules.auth.oauth2 as oauth2
+from modules.schemas import patient_schema
+from modules.models import patient_model
+from modules.schemas import user_schema
+from modules.auth.oauth2 import oauth2
 
 router = APIRouter(prefix="/patient", tags=["Patient"])
 
