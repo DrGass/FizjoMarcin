@@ -9,7 +9,7 @@ import modules.auth.oauth2 as oauth2
 router = APIRouter(prefix="/user", tags=["User"])
 
 
-@router.get("/", response_model=list[user_schema.showUser])
+@router.get("/", response_model=list[user_schema.showUser], dependencies=[Depends(oauth2.get_current_user)])
 def get_all(    
     db: Session = Depends(get_db),
     current_user: user_schema.User = Depends(oauth2.get_current_user),
