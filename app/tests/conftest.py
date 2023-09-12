@@ -5,8 +5,8 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy_utils import database_exists, create_database, drop_database
 
 
-from ..main import create_app
-from ..modules.database import Base, get_db
+from main import create_app
+from modules.database import Base, get_db
 
 app = create_app()
 

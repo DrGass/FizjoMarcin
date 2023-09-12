@@ -2,7 +2,7 @@ import subprocess
 
 from fastapi import FastAPI
 
-from .routers import patient, user, authentication
+from routers import patient, user, authentication
 
 def create_app():
     app = FastAPI()
