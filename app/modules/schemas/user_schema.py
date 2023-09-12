@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel,ConfigDict
 
 from modules.schemas.patient_schema import ShowPatient
 
@@ -8,8 +8,7 @@ class User(BaseModel):
     username: str
     password: str
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict()
 
 
 class showUser(BaseModel):
@@ -17,5 +16,4 @@ class showUser(BaseModel):
     id: int
     patients: list[ShowPatient] = []
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict()

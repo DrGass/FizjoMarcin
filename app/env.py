@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
 
 
@@ -13,9 +13,8 @@ class Env(BaseSettings):
     postgres_port: int 
     postgres_image_tag: str
     
-    class Config:
-        env_file = ".env"
-        env_file_encoding = 'utf-8'
+    class Settings(BaseSettings):
+        model_config = SettingsConfigDict(env_file='.env', env_file_encoding='utf-8')
 
 @lru_cache
 def get_env():

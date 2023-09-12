@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class NewPatient(BaseModel):
@@ -8,14 +8,11 @@ class NewPatient(BaseModel):
     age: int
     owner_id: int
 
-    class Config:
-        from_attributes = True
-
+    model_config = ConfigDict()
 
 class ShowPatient(BaseModel):
     name: str
     surname: str
     # owner : User didn't work for some unknown to me reason
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict()
