@@ -32,12 +32,12 @@ def db(db_engine):
     connection.close()
 
 
-# @pytest.fixture(scope="module")
-# def client(db):
-#     app.dependency_overrides[get_db] = lambda: db
-#     app.dependency_overrides[basic_access] = override_validate_token
-#     with TestClient(app) as c:
-#         yield c
+@pytest.fixture(scope="module")
+def client(db):
+    app.dependency_overrides[get_db] = lambda: db
+    # app.dependency_overrides[basic_access] = override_validate_token
+    with TestClient(app) as c:
+        yield c
 
 @pytest.fixture
 def input_value():
