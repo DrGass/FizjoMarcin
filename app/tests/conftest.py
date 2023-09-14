@@ -14,7 +14,7 @@ SQLALCHEMY_DATABASE_URL = "sqlite:///./test_db.db"
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
 SessionTesting = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def db_engine():
     if not database_exists(SQLALCHEMY_DATABASE_URL):
         create_database(engine.url)
@@ -22,7 +22,7 @@ def db_engine():
     yield engine
     drop_database(SQLALCHEMY_DATABASE_URL)
 
-@pytest.fixture(scope="module")
+@pytest.fixture()
 def db(db_engine):
     connection = db_engine.connect()
     connection.begin()
@@ -31,8 +31,10 @@ def db(db_engine):
     db.rollback()
     connection.close()
 
+# def override_validate_token():
+#     return {"email": "test.email@test.com"}
 
-@pytest.fixture(scope="module")
+@pytest.fixture()
 def client(db):
     app.dependency_overrides[get_db] = lambda: db
     # app.dependency_overrides[basic_access] = override_validate_token
