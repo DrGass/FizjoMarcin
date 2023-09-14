@@ -40,8 +40,3 @@ def client(db):
     # app.dependency_overrides[basic_access] = override_validate_token
     with TestClient(app) as c:
         yield c
-
-@pytest.fixture
-def input_value():
-   input = 36
-   return input

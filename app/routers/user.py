@@ -28,7 +28,7 @@ def get_by_id(
     return user
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("/create", status_code=status.HTTP_201_CREATED)
 def create(
     request: user_schema.User,
     db: Session = Depends(get_db),
@@ -38,7 +38,7 @@ def create(
     return {"success": True, "created_id:": new_user.id}
 
 
-@router.delete("/user/{id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/delete/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def destroy(
     id: int,
     db: Session = Depends(get_db),

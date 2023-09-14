@@ -17,13 +17,8 @@ credentials_exception = HTTPException(
 
 def test_validate_token_not_dev_env():
     env.environment = "some_env"
-    validated_token = verify_token("fake token",credentials_exception)
+    validated_token = verify_token("fake token")
     assert validated_token.get('email') == "test@test.com"
-
-# def test_read_main():
-#     env.environment = 'some_env'
-#     assert response.status_code == status.HTTP_200_OK
-#     # assert response.json() == 
 
 
 fake_db = {
