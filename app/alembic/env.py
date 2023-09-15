@@ -9,8 +9,8 @@ from alembic import context
 # access to the values within the .ini file in use.
 config = context.config
 
-from   modules.database import Base , SQLALCHEMY_DATABASE_URL
-import modules.models.user_model as user 
+from modules.database import Base, SQLALCHEMY_DATABASE_URL
+import modules.models.user_model as user
 import modules.models.patient_model as patient
 
 # Interpret the config file for Python logging.
@@ -19,8 +19,7 @@ import modules.models.patient_model as patient
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-config.set_main_option('sqlalchemy.url', SQLALCHEMY_DATABASE_URL)
-
+config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
 
 
 # add your model's MetaData object here
@@ -73,9 +72,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()

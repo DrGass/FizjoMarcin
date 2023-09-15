@@ -41,7 +41,7 @@ def create(
     db: Session = Depends(get_db),
     get_current_user: user_schema.User = Depends(oauth2.get_current_user),
 ):
-    new_patient = patient_model.create_patient(request,session = db)
+    new_patient = patient_model.create_patient(request, session=db)
     return {"success": True, "created_id:": new_patient.id}
 
 

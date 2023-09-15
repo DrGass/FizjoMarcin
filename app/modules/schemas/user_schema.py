@@ -1,4 +1,4 @@
-from pydantic import BaseModel,ConfigDict
+from pydantic import BaseModel, ConfigDict
 
 from modules.schemas.patient_schema import ShowPatient
 

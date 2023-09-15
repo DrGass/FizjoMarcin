@@ -49,15 +49,18 @@ def delete_user(id, db: SessionLocal):
 def update_user(id, db: SessionLocal, request):
     user = db.query(User).filter(User.id == id)
     if not user.first():
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                        detail=f"User with id {id} not found")
-    
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"User with id {id} not found"
+        )
+
     user.update(request.dict())
     db.commit()
+
 
 @staticmethod
 def get_all_users(db: SessionLocal):
     return db.query(User).all()
+
 
 ################################### ! Code before model update
 # from sqlalchemy import Column, Integer, String

@@ -9,8 +9,12 @@ import modules.auth.oauth2 as oauth2
 router = APIRouter(prefix="/user", tags=["User"])
 
 
-@router.get("/", response_model=list[user_schema.showUser], dependencies=[Depends(oauth2.get_current_user)])
-def get_all(    
+@router.get(
+    "/",
+    response_model=list[user_schema.showUser],
+    dependencies=[Depends(oauth2.get_current_user)],
+)
+def get_all(
     db: Session = Depends(get_db),
     current_user: user_schema.User = Depends(oauth2.get_current_user),
 ):
@@ -32,9 +36,8 @@ def get_by_id(
 def create(
     request: user_schema.User,
     db: Session = Depends(get_db),
-
 ):
-    new_user = user_model.create_user(request,db)
+    new_user = user_model.create_user(request, db)
     return {"success": True, "created_id:": new_user.id}
 
 
@@ -45,7 +48,7 @@ def destroy(
     current_user: user_schema.User = Depends(oauth2.get_current_user),
 ):
     user_model.delete_user(id, db)
-    return {"success:": True}    
+    return {"success:": True}
 
 
 @router.put("/{id}", status_code=status.HTTP_202_ACCEPTED)
@@ -56,7 +59,8 @@ def update(
     current_user: user_schema.User = Depends(oauth2.get_current_user),
 ):
     user_model.update_user(id, db, request)
-    return {"success:": True,"Updated user nr:": id }
+    return {"success:": True, "Updated user nr:": id}
+
 
 ################################### ! Code before model update
 # from fastapi import APIRouter, Depends, status, HTTPException
@@ -133,4 +137,3 @@ def update(
 #     user_model.update_user(id, db, request)
 #     db.commit()
 #     return "updated"
-

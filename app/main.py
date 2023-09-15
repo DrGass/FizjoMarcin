@@ -4,6 +4,7 @@ from fastapi import FastAPI
 
 from routers import patient, user, authentication
 
+
 def create_app():
     app = FastAPI()
 
@@ -12,5 +13,5 @@ def create_app():
     app.include_router(user.router)
 
     subprocess.run(["alembic", "upgrade", "head"])
-    
+
     return app

@@ -10,6 +10,7 @@ class NewPatient(BaseModel):
 
     model_config = ConfigDict()
 
+
 class ShowPatient(BaseModel):
     name: str
     surname: str

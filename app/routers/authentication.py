@@ -12,7 +12,7 @@ router = APIRouter(tags=["Authentication"])
 import modules.models.user_model as user_model
 import modules.schemas.token_schema as token_schema
 import modules.schemas.user_schema as user_schema
-from   modules.database import get_db
+from modules.database import get_db
 
 # from modules.auth.oauth2 import get_current_user
 
@@ -109,6 +109,7 @@ async def login_for_access_token(
     )
     access_token = create_access_token(data={"sub": user.username})
     return {"access_token": access_token, "token_type": "bearer"}
+
 
 @router.get("/items/")
 async def read_items(token: Annotated[str, Depends(oauth2_scheme)]):

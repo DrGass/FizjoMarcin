@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 import modules.schemas.token_schema as token_schema
 
 from env import get_env
+
 env = get_env()
 
 SECRET_KEY = "28b802dd320593ee6e84523870ffe73b046aefce92450dfbfef77dadf2f5a8c4"
@@ -16,6 +17,8 @@ credentials_exception = HTTPException(
     detail="Could not validate credentials",
     headers={"WWW-Authenticate": "Bearer"},
 )
+
+
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
