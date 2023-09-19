@@ -3,7 +3,7 @@ from fastapi import status
 root_path = "/patient"
 
 
-def test_user(client):
+def test_patient(client):
     response = client.get(f"{root_path}/")
     assert response.json() == []
     assert response.status_code == 200
