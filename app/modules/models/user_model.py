@@ -4,6 +4,8 @@ from sqlalchemy import Column, Integer, String
 from modules.database import Base, SessionLocal
 from passlib.context import CryptContext
 from sqlalchemy.orm import relationship
+from sqlalchemy.exc import IntegrityError
+from ..exceptions import UserExistsException
 
 pwd_ctx = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -11,7 +13,7 @@ pwd_ctx = CryptContext(schemes=["bcrypt"], deprecated="auto")
 class User(Base):
     __tablename__ = "user"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     username = Column(String)
     password = Column(String)
 
@@ -22,8 +24,12 @@ class User(Base):
 def create_user(request, db: SessionLocal):
     new_user = User(**request.model_dump())
     new_user.password = pwd_ctx.hash(request.password)
-    db.add(new_user)
-    db.commit()
+    try:
+        db.add(new_user)
+        db.commit()
+    except IntegrityError:
+        db.rollback()
+        raise UserExistsException
     db.refresh(new_user)
     return new_user
 

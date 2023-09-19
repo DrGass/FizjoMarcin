@@ -4,7 +4,6 @@ from modules.schemas.patient_schema import ShowPatient
 
 
 class User(BaseModel):
-    id: int
     username: str
     password: str
 

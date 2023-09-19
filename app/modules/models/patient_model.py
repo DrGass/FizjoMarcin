@@ -9,7 +9,7 @@ from modules.database import Base, SessionLocal
 class Patient(Base):
     __tablename__ = "patient"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String)
     surname = Column(String)
     age = Column(Integer)

@@ -2,7 +2,6 @@ from pydantic import BaseModel, ConfigDict
 
 
 class NewPatient(BaseModel):
-    id: int
     name: str
     surname: str
     age: int
