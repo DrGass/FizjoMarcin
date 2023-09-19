@@ -22,7 +22,7 @@ def get_all(
     return users
 
 
-@router.get("/{id}", status_code=200, response_model=user_schema.User)
+@router.get("/{id}", status_code=200, response_model=user_schema.showUser)
 def get_by_id(
     id: int,
     db: Session = Depends(get_db),

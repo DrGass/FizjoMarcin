@@ -27,7 +27,7 @@ def db_engine():
     drop_database(SQLALCHEMY_DATABASE_URL)
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def db(db_engine):
     connection = db_engine.connect()
     connection.begin()
@@ -41,7 +41,7 @@ def override_validate_token():
     return {"email": "test.email@test.com"}
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="function")
 def client(db):
     app.dependency_overrides[get_db] = lambda: db
     app.dependency_overrides[get_current_user] = override_validate_token
