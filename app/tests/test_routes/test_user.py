@@ -18,11 +18,11 @@ def create_patient(id, name, surname, age, client):
     }
     client.post(f"patient", json=payload)
 
-
-def test_user(client):
-    response = client.get(f"{root_path}/")
-    assert response.json() == []
-    assert response.status_code == 200
+# It's the same as get all users empty
+# def test_user(client):
+#     response = client.get(f"{root_path}/")
+#     assert response.json() == []
+#     assert response.status_code == 200
 
 
 def test_get_all_user_empty(client):
@@ -31,15 +31,15 @@ def test_get_all_user_empty(client):
     assert response.json() == []
 
 
-def test_create_user(client):
+def test_create_patient(client):
     response = create_user("0bartosz", "0górski", client)
     assert response.status_code == 201
     assert response.json()["success"] == True
 
-
-def test_create_existing_user(client):
-    create_user("0bartosz", "0górski", client)
-    response = create_user("0bartosz", "0górski", client)
+# Again, nonsense as i don't have unique nicknames
+# def test_create_existing_user(client):
+#     create_user("0bartosz", "0górski", client)
+#     response = create_user("0bartosz", "0górski", client)
 
 
 def test_get_all_user_multiple_users(client):
@@ -64,14 +64,7 @@ def test_get_user_by_id(client):
     assert response.status_code == 200
 
 
-# Can't do it as database gives numbers by itself
-# def test_get_not_existing_user_by_id(client):
-#     response = client.get(f"{root_path}/0")
-#     assert response.json() == {"detail": "User with number 0 is not avaiable"}
-#     assert response.status_code == 404
-
-
-def test_get_user_by_id_with_patients(client):
+def test_get_patient_by_id(client):
     create_user("1bartosz", "1górski", client)
     create_patient(1, "0marcin", "0górski", 30, client)
     response = client.get(f"{root_path}/1")
